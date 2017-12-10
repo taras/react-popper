@@ -6,7 +6,7 @@ const noop = () => null
 
 class Popper extends Component {
   static contextTypes = {
-    popperManager: PropTypes.object.isRequired,
+    popperManager: PropTypes.object,
   }
 
   static childContextTypes = {
@@ -20,6 +20,7 @@ class Popper extends Component {
     eventsEnabled: PropTypes.bool,
     modifiers: PropTypes.object,
     children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    target: PropTypes.element
   }
 
   static defaultProps = {
@@ -66,6 +67,9 @@ class Popper extends Component {
   }
 
   _getTargetNode = () => {
+    if (this.props.target) {
+      return this.props.target;
+    }
     return this.context.popperManager.getTargetNode()
   }
 
